@@ -102,6 +102,7 @@ function save(){localStorage.setItem(KEY,JSON.stringify(questions));localStorage
 const SUPABASE_URL='https://eqchwaelzqdkltaixgrn.supabase.co';
 const SUPABASE_KEY='sb_publishable_vFJLF1ciIvWKm2AE36He6A_ysNohnwT';
 const cloudClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+const $=id=>document.getElementById(id);
 let currentUser=null, cloudTimer=null, cloudChannel=null, lastCloudJson='';
 function setAuthStatus(msg){$('authStatus').textContent=msg}
 function setSyncStatus(msg){$('syncStatus').textContent=msg}
@@ -181,7 +182,6 @@ cloudClient.auth.onAuthStateChange((event,session)=>{
  }
 });
 
-const $=id=>document.getElementById(id);
 function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,7)}
 function refresh(){
