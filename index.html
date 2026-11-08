@@ -171,10 +171,11 @@ $('sendMagicLink').onclick=async()=>{
 };
 $('syncNowBtn').onclick=()=>pushCloudData();
 $('signOutBtn').onclick=async()=>{await cloudClient.auth.signOut();if(cloudChannel)cloudClient.removeChannel(cloudChannel);currentUser=null;setSignedOut();setSyncStatus('로그아웃되었습니다.')};
-cloudClient.auth.onAuthStateChange(async(event,session)=>{
+cloudClient.auth.onAuthStateChange((event,session)=>{
  const user=session&&session.user;
  if(user&&(!currentUser||currentUser.id!==user.id)){
-  currentUser=user;setSignedIn(user);await loadCloudData();
+  currentUser=user;setSignedIn(user);
+  setTimeout(()=>loadCloudData(),0);
  }else if(!user&&currentUser){
   currentUser=null;setSignedOut();
  }
